@@ -1,14 +1,16 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema();
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
 
 const AccountSchema = new Schema({
   username: {
     type: String,
+    trim: true,
     required: true,
     unique: true,
   },
   email: {
     type: String,
+    trim: true,
     required: true,
     unique: true,
     lowercase: true,
@@ -17,7 +19,7 @@ const AccountSchema = new Schema({
     type: String,
     required: true,
   },
-  notes: [{ type: Schema.Type.ObjectId, ref: "note" }],
+  //notes: [{ type: Schema.Type.ObjectId, ref: "note" }],
 });
 
-module.exports = mongoose.model("Accounts", AccountSchema);
+export default mongoose.model("Accounts", AccountSchema);

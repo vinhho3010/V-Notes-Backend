@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema();
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
 
 const NoteSchema = new Schema({
     ownerID: {
-        type: Schema.Type.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'account'
     },
     title: {
@@ -12,10 +12,19 @@ const NoteSchema = new Schema({
     content: {
         type: String,
     },
+    color:{
+        type: String,
+        default: "#000000",
+    },
     isPin: {
         type: Boolean,
         required: true
+    },
+    isDeleted: {
+        type: Boolean,
+        required: true,
+        default: false,
     }
 });
 
-module.exports = mongoose.model("Notes", NoteSchema)
+export default mongoose.model("Notes", NoteSchema)

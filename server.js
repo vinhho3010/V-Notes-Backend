@@ -1,16 +1,17 @@
-const app = require("./app");
-const config = require ("./app/config");
-const connectDB = require("./app/ConnectDB/connectDB");
-const Noteroutes = require ("./app/routes/note.route");
-const ApiError = require ("./app/Error/api-error");
+import app from './app.js';
+import config from './app/config/index.js';
+import connectDB from './app/ConnectDB/connectDB.js';
+import Routes from './app/routes/index.js'
+import ApiError from './app/Error/api-error.js';
 
 const PORT = config.app.port;
 
 //connect to mongodb
 connectDB();
 
-//define route in server
-app.use("/api/notes", Noteroutes);
+//define API route in server
+app.use("/api/", Routes);
+
 
 //define error handle when don't have compatible route
 app.use((req, res, next) => {
@@ -25,7 +26,7 @@ app.use((err, req, res, next) => {
 });
 
 
-//run app
+//run server
 app.listen(PORT, ()=>{
     console.log(`Server is running on PORT ${PORT}`)
 });
