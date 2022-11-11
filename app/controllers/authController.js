@@ -9,7 +9,7 @@ class AuthController {
   register = async (req, res) => {
     try {
       const account = await accountModels.findOne({
-        username: req.body.username,
+        email: req.body.email,
       });
 
       if (account) {
@@ -37,7 +37,7 @@ class AuthController {
   login = async (req, res) => {
     try {
       const account = await accountModels.findOne({
-        username: req.body.username,
+        email: req.body.email,
       });
 
       //account is registered
@@ -49,11 +49,11 @@ class AuthController {
 
         //password true
         if (mathPassword) {
-          const accessToken = handleToken.access({ _id: account._id }, "600s");
+          const accessToken = handleToken.access({ _id: account._id }, "6000s");
 
           const refreshToken = handleToken.refresh(
             { _id: account._id },
-            "600s"
+            "6000s"
           );
           //store token to cookie
           res.cookie("refreshToken", refreshToken, {
@@ -89,7 +89,7 @@ class AuthController {
   };
 
   refreshToken = (req, res) =>{
-    res.send("This is refresh token");
+    res.send("This is refresh token api");
   }
 }
 
