@@ -83,16 +83,18 @@ class NotesController {
 
     try {
       const { noteId } = req.params;
-      const { ownerId, title, content, color, isPin, isDeleted } = req.body;
-      const result = await NotesModel.findOneAndUpdate({
-        ownerID: ObjectId(ownerId),
+      const {title, content, color, isPin, isDeleted } = req.body;
+      const filter = {_id: noteId};
+      const update = { 
         title,
         content,
         color,
         isPin,
-        isDeleted,
-      });
-
+        isDeleted,}
+      const result = await NotesModel.findOneAndUpdate(filter, update, 
+        {
+          new: true,
+        });
       return res.status(201).json({
         status: true,
         message: "update note successfully",
